@@ -1,0 +1,49 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace PayrollLibrary.Business.CoreItems
+{
+    public class PayrollPeriod
+    {
+        public static readonly uint NOW = 0;
+
+        public PayrollPeriod(uint code)
+        {
+            this.Code = code;
+        }
+
+        public PayrollPeriod(uint year, byte month) : this(year*100 + month)
+        {
+        }
+
+        public uint Code { get; private set; }
+
+        public uint Year()
+        {
+            return (Code / 100);
+        }
+
+        public byte Month()
+        {
+            return (byte)(Code % 100);
+        }
+
+        public int YearInt()
+        {
+            return (int)(Code / 100);
+        }
+
+        public int MonthInt()
+        {
+            return (int)(Code % 100);
+        }
+
+        public string Description()
+        {
+            DateTime firstPeriodDay = new DateTime(YearInt(), MonthInt(), 1);
+            return firstPeriodDay.ToString("MMMM yyyy");
+        }
+    }
+}
