@@ -7,6 +7,7 @@ using PayrollLibrary.Business.Core;
 using PayrollLibrary.Business.PayTags;
 using PayrollLibrary.Business.Results;
 using System.Xml;
+using PayrollLibrary.Business.Symbols;
 
 namespace PayrollLibrary.Business.Concepts
 {
@@ -28,6 +29,11 @@ namespace PayrollLibrary.Business.Concepts
             newConcept.InitCode(code);
             newConcept.InitValues(values);
             return newConcept;
+        }
+
+        public override uint TypeOfResult()
+        {
+            return TypeResult.TYPE_RESULT_SUMMARY;
         }
 
         public override uint CalcCategory()

@@ -7,6 +7,7 @@ using PayrollLibrary.Business.Core;
 using PayrollLibrary.Business.PayTags;
 using PayrollLibrary.Business.Results;
 using System.Xml;
+using PayrollLibrary.Business.Symbols;
 
 namespace PayrollLibrary.Business.Concepts
 {
@@ -39,6 +40,11 @@ namespace PayrollLibrary.Business.Concepts
                 new TimesheetPeriodTag(),
                 new ScheduleTermTag()
             };
+        }
+
+        public override uint TypeOfResult()
+        {
+            return TypeResult.TYPE_RESULT_SCHEDULE;
         }
 
         public override uint CalcCategory()

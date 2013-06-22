@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using PayrollLibrary.Business.Core;
 using System.Xml;
+using PayrollLibrary.Business.Symbols;
 
 namespace PayrollLibrary.Business.CoreItems
 {
@@ -56,6 +57,11 @@ namespace PayrollLibrary.Business.CoreItems
 
         public virtual void ExportXml(XmlWriter xmlBuilder)
         {
+        }
+
+        public virtual uint TypeOfResult()
+        {
+            return TypeResult.TYPE_RESULT_NULL;
         }
 
         public virtual string ExportValueResult()

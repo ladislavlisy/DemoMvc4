@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using PayrollLibrary.Business.Core;
 using PayrollLibrary.Business.CoreItems;
+using PayrollLibrary.Business.Export;
+using PayrollLibrary.Business.Symbols;
 
 namespace DemoMvc4.Models
 {
@@ -24,20 +26,132 @@ namespace DemoMvc4.Models
             PayConcepts = new PayConceptGateway();
 
             PayProcess = new PayrollProcess(PayTags, PayConcepts, Period);
+        }
 
-            PayNames = new PayNameGateway();
-            PayNames.LoadModels();
+        public PayrollExample(ExampleSpec exampleSpec)
+        {
+            DateTime periodNow = DateTime.Now;
+
+            Period = new PayrollPeriod((uint)periodNow.Year, (byte)periodNow.Month);
+
+            PayTags = new PayTagGateway();
+
+            PayConcepts = new PayConceptGateway();
+
+            PayProcess = new PayrollProcess(PayTags, PayConcepts, Period);
+
+            PersonnelNumber = exampleSpec.Number;
+
+            PersonnelName = exampleSpec.Name;
+        
+            PersonnelDepartment = exampleSpec.Department;
+
+            PersonnelCompany = "Example Payroll Company Ltd.";
+
+            PeriodDescription = Period.Description();
+
+            CreateWorkingSchedule(exampleSpec.Schedule, null, null);
+            CreateSalary(exampleSpec.Salary);
+            CreateTaxDeclaration(exampleSpec.TaxPayer, exampleSpec.TaxDeclaration);
+            CreateHealthInsurance(exampleSpec.InsHealthPayer, exampleSpec.InsHealthEmployer, exampleSpec.InsHealthMinim);
+            CreateSocialInsurance(exampleSpec.InsSocialPayer, exampleSpec.InsSocialEmployer);
+            CreateTaxBenefits(
+                exampleSpec.TaxBenefitPayer, 
+                exampleSpec.TaxBenefitDisab1, 
+                exampleSpec.TaxBenefitDisab2, 
+                exampleSpec.TaxBenefitDisab3,
+                exampleSpec.TaxBebefitStudy, 
+                (uint)exampleSpec.TaxBenefitChild.Count((x) => (x)));
+
+            CreateIncomeCalculation();
+
+            Exporter = new PayrollResultsExporter(
+                PersonnelCompany, 
+                PersonnelDepartment, 
+                PersonnelName, 
+                PersonnelNumber, 
+                PayProcess);
+
+            ExportPart1L = Exporter.GetSourceEarningsExport();
+            ExportPart1R = Exporter.GetSourceTaxSourceExport(); 
+
+            ExportPart2L = Exporter.GetSourceTaxInsIncomeExport();
+            ExportPart2R = Exporter.GetSourceTaxInsResultExport();
+
+            ExportPart3L = new Dictionary<string,string>[] {
+                Exporter.GetSourceSummaryExport()[0].ToDictionary(key => key.Key, value => value.Value)
+            };
+            ExportPart3R = new Dictionary<string,string>[] {
+                Exporter.GetSourceSummaryExport()[1].ToDictionary(key => key.Key, value => value.Value)
+            };
         }
 
         private PayrollProcess PayProcess { get; set; }
-
-        private PayNameGateway PayNames { get; set; }
 
         private PayTagGateway PayTags { get; set; }
 
         private PayConceptGateway PayConcepts { get; set; }
 
         private PayrollPeriod Period { get; set; }
+
+        public string PersonnelNumber { get; set; }
+
+        public string PersonnelName { get; set; }
+        
+        public string PersonnelDepartment { get; set; }
+        
+        public string PersonnelCompany { get; set; }
+        
+        public string PeriodDescription { get; set; }
+
+        public PayrollResultsExporter Exporter { get; set; }
+
+        public IDictionary<string, string>[] ExportPart1L { get; set; }
+        public IDictionary<string, string>[] ExportPart1R { get; set; }
+
+        public IDictionary<string, string>[] ExportPart2L { get; set; }
+        public IDictionary<string, string>[] ExportPart2R { get; set; }
+
+        public IDictionary<string, string>[] ExportPart3L { get; set; }
+        public IDictionary<string, string>[] ExportPart3R { get; set; }
+
+        public IDictionary<string, string>[] ExportPart4L { get; set; }
+        public IDictionary<string, string>[] ExportPart4R { get; set; }
+
+        public static string TitleFromDetails(IDictionary<string, string> detail)
+        {
+            return detail["title"];
+        }
+
+        public static string ValueFromDetails(IDictionary<string, string> detail)
+        {
+            return detail["value"];
+        }
+
+        public static string ImageFromDetails(IDictionary<string, string> detail)
+        {
+            uint imageNumb = UInt32.Parse(detail["image"]);
+            string imageString = "unknown";
+            switch (imageNumb)
+            {
+                case TypeResult.TYPE_RESULT_SUMMARY: 
+                    imageString = "summary";
+                    break;
+                case TypeResult.TYPE_RESULT_SCHEDULE: 
+                    imageString = "schedule";
+                    break;
+                case TypeResult.TYPE_RESULT_INCOME: 
+                    imageString = "income";
+                    break;
+                case TypeResult.TYPE_RESULT_DEDUCTION: 
+                    imageString = "deduction";
+                    break;
+                default: 
+                     imageString = "unknown";
+                     break;
+            }
+            return imageString + ".png";
+        }
 
         public bool CreateWorkingSchedule(int hoursWeekly, DateTime? dateFrom, DateTime? dateEnd)
         {
@@ -66,26 +180,30 @@ namespace DemoMvc4.Models
             return true;
         }
 
-        public bool CreateHealthInsurance(bool ins_yes, bool min_yes)
+        public bool CreateHealthInsurance(bool ins_yes, bool emp_yes, bool min_yes)
         {
             uint interest_code = (ins_yes ? INTEREST_YES : INTEREST_NON);
             uint minimum_asses = (min_yes ? INTEREST_YES : INTEREST_NON);
+            uint interest_empl = (emp_yes ? INTEREST_YES : INTEREST_NON);
             var interest_value = new Dictionary<string, object>() { { "interest_code", interest_code }, { "minimum_asses", minimum_asses } };
+            var employer_value = new Dictionary<string, object>() { { "interest_code", interest_empl } };
 
             PayProcess.AddTerm(PayTagGateway.REF_INSURANCE_HEALTH_BASE, interest_value);
             PayProcess.AddTerm(PayTagGateway.REF_INSURANCE_HEALTH, interest_value);
-            PayProcess.AddTerm(PayTagGateway.REF_TAX_EMPLOYERS_HEALTH, interest_value);
+            PayProcess.AddTerm(PayTagGateway.REF_TAX_EMPLOYERS_HEALTH, employer_value);
             return true;
         }
 
-        public bool CreateSocialInsurance(bool ins_yes)
+        public bool CreateSocialInsurance(bool ins_yes, bool emp_yes)
         {
             uint interest_code = (ins_yes ? INTEREST_YES : INTEREST_NON);
+            uint interest_empl = (emp_yes ? INTEREST_YES : INTEREST_NON);
             var interest_value = new Dictionary<string, object>() { { "interest_code", interest_code } };
+            var employer_value = new Dictionary<string, object>() { { "interest_code", interest_empl } };
 
             PayProcess.AddTerm(PayTagGateway.REF_INSURANCE_SOCIAL_BASE, interest_value);
             PayProcess.AddTerm(PayTagGateway.REF_INSURANCE_SOCIAL, interest_value);
-            PayProcess.AddTerm(PayTagGateway.REF_TAX_EMPLOYERS_SOCIAL, interest_value);
+            PayProcess.AddTerm(PayTagGateway.REF_TAX_EMPLOYERS_SOCIAL, employer_value);
             return true;
         }
 
@@ -124,7 +242,5 @@ namespace DemoMvc4.Models
             var result = PayProcess.Evaluate(result_tag);
             return true;
         }
-
-
     }
 }

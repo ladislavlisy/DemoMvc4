@@ -7,6 +7,7 @@ using PayrollLibrary.Business.Core;
 using PayrollLibrary.Business.PayTags;
 using PayrollLibrary.Business.Results;
 using System.Xml;
+using PayrollLibrary.Business.Symbols;
 
 namespace PayrollLibrary.Business.Concepts
 {
@@ -41,6 +42,11 @@ namespace PayrollLibrary.Business.Concepts
         public override PayrollTag[] SummaryCodes()
         {
             return new PayrollTag[0];
+        }
+
+        public override uint TypeOfResult()
+        {
+            return TypeResult.TYPE_RESULT_SUMMARY;
         }
 
         public override PayrollResult Evaluate(PayrollPeriod period, PayTagGateway tagConfig, IDictionary<TagRefer, PayrollResult> results)

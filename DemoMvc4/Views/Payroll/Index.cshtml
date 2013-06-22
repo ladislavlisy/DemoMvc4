@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<DemoMvc4.Models.ExampleSpec>
+@{
     ViewBag.Title = "Examples";
 }
 
@@ -8,62 +9,20 @@
 
 <p class="lead">Try yourself some payroll examples. We care about simplicity. Just a few clicks to get payroll from timesheet to direct deposit. All done with easy, completely and accurately. Your staff will love it.</p>
 <ul class="thumbnails">
+    @foreach (var example in Model)
+    {
     <li class="span3">
-        <a class="thumbnail" href="@Url.Action("Index", "Payroll")" target="_blank">
-            <img src="~/Content/images/Example-1.png" alt="">
+        <a class="thumbnail" href="@Url.Action("Example", "Payroll", new {Id = @example.Id})">
+            <img src="~/Content/images/@example.Placeholder" alt="">
         </a>
-        <h4>Starter employee.</h4>
-        <p>Salary, work schedule 40 hours, tax advance, health and social insurance.</p>
+        <h4>@example.Name</h4>
+        <dl>
+            <dt>Payroll classification</dt>
+            @foreach (var descript in example.Description)
+            {
+            <dd>@descript</dd>
+            }
+        </dl>
     </li>
-    <li class="span3">
-        <a class="thumbnail" href="http://twitter.github.io/bootstrap/examples/hero.html" target="_blank">
-            <img src="~/Content/images/Example-2.png" alt="">
-        </a>
-        <h4>Junior programmer.</h4>
-        <p>Salary, work schedule 40 hours, tax advance, health and social insurance.</p>
-    </li>
-    <li class="span3">
-        <a class="thumbnail" href="http://twitter.github.io/bootstrap/examples/fluid.html" target="_blank">
-            <img src="~/Content/images/Example-3.png" alt="">
-        </a>
-        <h4>Senior programmer.</h4>
-        <p>Salary, work schedule 40 hours, tax advance, health and social insurance.</p>
-    </li>
-
-    <li class="span3">
-        <a class="thumbnail" href="http://twitter.github.io/bootstrap/examples/marketing-narrow.html" target="_blank">
-            <img src="~/Content/images/Example-4.png" alt="">
-        </a>
-        <h4>Marketing.</h4>
-        <p>Salary, work schedule 40 hours, tax advance, health and social insurance.</p>
-    </li>
-    <li class="span3">
-        <a class="thumbnail" href="http://twitter.github.io/bootstrap/examples/justified-nav.html" target="_blank">
-            <img src="~/Content/images/Example-5.png" alt="">
-        </a>
-        <h4>Management.</h4>
-        <p>Salary, work schedule 40 hours, tax advance, health and social insurance.</p>
-    </li>
-    <li class="span3">
-        <a class="thumbnail" href="http://twitter.github.io/bootstrap/examples/signin.html" target="_blank">
-            <img src="~/Content/images/Example-6.png" alt="">
-        </a>
-        <h4>Maintenance.</h4>
-        <p>Salary, work schedule 40 hours, tax advance, health and social insurance.</p>
-    </li>
-
-    <li class="span3">
-        <a class="thumbnail" href="http://twitter.github.io/bootstrap/examples/sticky-footer.html" target="_blank">
-            <img src="~/Content/images/Example-7.png" alt="">
-        </a>
-        <h4>Designer.</h4>
-        <p>Salary, work schedule 40 hours, tax advance, health and social insurance.</p>
-    </li>
-    <li class="span3">
-        <a class="thumbnail" href="http://twitter.github.io/bootstrap/examples/carousel.html" target="_blank">
-            <img src="~/Content/images/Example-8.png" alt="">
-        </a>
-        <h4>Salesman.</h4>
-        <p>Salary, work schedule 40 hours, tax advance, health and social insurance.</p>
-    </li>
+    }
 </ul>

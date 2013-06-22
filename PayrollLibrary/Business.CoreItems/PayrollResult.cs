@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml;
+using PayrollLibrary.Business.Symbols;
 
 namespace PayrollLibrary.Business.CoreItems
 {
@@ -118,7 +119,34 @@ namespace PayrollLibrary.Business.CoreItems
 
         public IDictionary<string, string> ExportTitleValue(TagRefer tagRefer, PayrollName tagName, PayrollTag tagItem, PayrollConcept tagConcept)
         {
-            return new Dictionary<string, string>() { { "title", tagName.Title }, { "value", ExportValueResult() } };
+            return new Dictionary<string, string>() {
+                { "title", tagName.Title }, 
+                { "value", ExportValueResult() }, 
+                { "image", ExportTypeOfResult(tagItem, tagConcept).ToString() } 
+            };
+        }
+
+        public uint ExportTypeOfResult(PayrollTag tagItem, PayrollConcept tagConcept)
+        {
+            uint typeOfResult = TypeResult.TYPE_RESULT_SUMMARY;
+            if (tagItem.TypeOfResult() != TypeResult.TYPE_RESULT_NULL)
+            {
+                typeOfResult = tagItem.TypeOfResult();
+            }
+            else if (tagConcept.TypeOfResult() != TypeResult.TYPE_RESULT_NULL)
+            {
+                typeOfResult = tagConcept.TypeOfResult();
+            }
+            else if (this.TypeOfResult() != TypeResult.TYPE_RESULT_NULL)
+            {
+                typeOfResult = this.TypeOfResult();
+            }
+            return typeOfResult;
+        }
+
+        protected virtual uint TypeOfResult()
+        {
+            return TypeResult.TYPE_RESULT_NULL;
         }
 
         virtual public decimal Payment()

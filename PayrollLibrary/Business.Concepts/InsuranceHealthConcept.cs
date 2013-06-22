@@ -7,6 +7,7 @@ using PayrollLibrary.Business.Core;
 using PayrollLibrary.Business.PayTags;
 using PayrollLibrary.Business.Results;
 using System.Xml;
+using PayrollLibrary.Business.Symbols;
 
 namespace PayrollLibrary.Business.Concepts
 {
@@ -50,6 +51,11 @@ namespace PayrollLibrary.Business.Concepts
             return new PayrollTag[] {
                 new IncomeNettoTag()
             };
+        }
+
+        public override uint TypeOfResult()
+        {
+            return TypeResult.TYPE_RESULT_DEDUCTION;
         }
 
         public override uint CalcCategory()

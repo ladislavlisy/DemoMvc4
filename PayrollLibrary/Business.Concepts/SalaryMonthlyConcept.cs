@@ -8,6 +8,7 @@ using PayrollLibrary.Business.PayTags;
 using PayrollLibrary.Business.Results;
 using System.Xml;
 using PayrollLibrary.Business.Libs;
+using PayrollLibrary.Business.Symbols;
 
 namespace PayrollLibrary.Business.Concepts
 {
@@ -54,6 +55,11 @@ namespace PayrollLibrary.Business.Concepts
                 new InsuranceHealthBaseTag(),
                 new TaxIncomeBaseTag()  
             };
+        }
+
+        public override uint TypeOfResult()
+        {
+            return TypeResult.TYPE_RESULT_INCOME;
         }
 
         public override uint CalcCategory()

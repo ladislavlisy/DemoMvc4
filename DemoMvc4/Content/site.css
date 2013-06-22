@@ -8,3 +8,19 @@
 [class^="icon-"],[class*=" icon-"] {
     background-image: url("/Content/images/glyphicons-halflings.png");
 }
+
+.image-ikona
+{
+  width: 30px;
+  height: 30px;
+}
+
+.navbar .nav > li > a.btn-text-white 
+{
+    color: white;
+}
+
+a.btn-text-white
+{
+    color: white;
+}

@@ -7,6 +7,7 @@ using PayrollLibrary.Business.Core;
 using PayrollLibrary.Business.PayTags;
 using PayrollLibrary.Business.Results;
 using System.Xml;
+using PayrollLibrary.Business.Symbols;
 
 namespace PayrollLibrary.Business.Concepts
 {
@@ -37,6 +38,11 @@ namespace PayrollLibrary.Business.Concepts
             return new PayrollTag[] {
                 new ScheduleWorkTag()
             };
+        }
+
+        public override uint TypeOfResult()
+        {
+            return TypeResult.TYPE_RESULT_SCHEDULE;
         }
 
         public override uint CalcCategory()
@@ -85,8 +91,18 @@ namespace PayrollLibrary.Business.Concepts
         private int HoursFromWeek(int[] weekHours, int dayOrdinal, int calendarBegCwd, DateTime calendarBeg)
         {
             DateTime calendarDay = new DateTime(calendarBeg.Year, calendarBeg.Month, dayOrdinal);
-            int dayOfWeek = (dayOrdinal % 7) + (calendarBegCwd - 1);
+            int dayOfWeek = DayOfWeekFromOrdinal(dayOrdinal, calendarBegCwd);
             return weekHours[dayOfWeek-1];
+        }
+
+        private int DayOfWeekFromOrdinal(int dayOrdinal, int calendarBegCwd)
+        {
+            // dayOrdinal 1..31
+            // calendarBegCwd 1..7
+            // dayOfWeek 1..7
+
+            int dayOfWeek = (((dayOrdinal - 1) + (calendarBegCwd - 1)) % 7) + 1;
+            return dayOfWeek;
         }
 
         #region ICloneable Members

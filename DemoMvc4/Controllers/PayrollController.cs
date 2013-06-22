@@ -14,12 +14,17 @@ namespace DemoMvc4.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            var examples = ExampleSpec.ExamplesStatic();
+            return View(examples);
         }
 
         public ActionResult Example(int id)
         {
-            var example = new PayrollExample();
+            var examples = ExampleSpec.ExamplesStatic();
+            ExampleSpec exampleSpec = examples.Single((x) => (x.Id == id));
+
+            var example = new PayrollExample(exampleSpec);
+
             return View(example);
         }
     }

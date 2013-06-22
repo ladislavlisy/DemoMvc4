@@ -159,10 +159,10 @@
     <Compile Include="Business.Results\TermHoursResult.cs" />
     <Compile Include="Business.Results\TimesheetResult.cs" />
     <Compile Include="Business.Results\UnknownResult.cs" />
+    <Compile Include="Business.Symbols\TypeResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Business.Symbols\" />
     <Folder Include="lib\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

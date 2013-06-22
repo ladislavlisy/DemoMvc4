@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using PayrollLibrary.Business.Symbols;
 
 namespace PayrollLibrary.Business.CoreItems
 {
@@ -35,5 +36,10 @@ namespace PayrollLibrary.Business.CoreItems
 
         public virtual bool DeductionNetto() { return false; }
 
+
+        public virtual uint TypeOfResult()
+        {
+            return TypeResult.TYPE_RESULT_NULL;
+        }
     }
 }
