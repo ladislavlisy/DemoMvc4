@@ -12,7 +12,7 @@ namespace DemoMvc4.Models
     public class PayrollExample
     {
         static readonly uint INTEREST_YES = 1;
-        static readonly uint INTEREST_NON = 1;
+        static readonly uint INTEREST_NON = 0;
         static readonly uint INTEREST_TWO = 2;
 
         public PayrollExample()
