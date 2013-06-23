@@ -75,7 +75,7 @@ namespace DemoMvc4.Models
                             "Claim payer tax benefit",
                             "No child"
                         },
-                        Placeholder = "Example-1.png",
+                        Placeholder = "Example-1.jpg",
                         Schedule = 40,
                         Absence = 0,
                         Salary = 15000m,
@@ -110,7 +110,7 @@ namespace DemoMvc4.Models
                         "Claim payer tax benefit",
                         "Claim tax benfit for 1 child"
                     },
-                Placeholder = "Example-2.png",
+                Placeholder = "Example-2.jpg",
                 Schedule = 40,
                 Absence = 0,
                 Salary = 25000m,
@@ -144,7 +144,7 @@ namespace DemoMvc4.Models
                         "Claim payer tax benefit",
                         "Claim tax benfit for 2 children"
                     },
-                Placeholder = "Example-3.png",
+                Placeholder = "Example-3.jpg",
                 Schedule = 40,
                 Absence = 0,
                 Salary = 75000m,
@@ -178,7 +178,7 @@ namespace DemoMvc4.Models
                         "Claim payer tax benefit",
                         "Claim tax benfit for 3 children"
                     },
-                Placeholder = "Example-4.png",
+                Placeholder = "Example-4.jpg",
                 Schedule = 40,
                 Absence = 0,
                 Salary = 85000m,
@@ -212,7 +212,7 @@ namespace DemoMvc4.Models
                         "Claim payer tax benefit",
                         "Claim tax benfit for 4 children"
                     },
-                Placeholder = "Example-5.png",
+                Placeholder = "Example-5.jpg",
                 Schedule = 40,
                 Absence = 0,
                 Salary = 125000m,
@@ -246,7 +246,7 @@ namespace DemoMvc4.Models
                         "No Social and Health Insurance",
                         "No tax declaration and benefits"
                     },
-                Placeholder = "Example-6.png",
+                Placeholder = "Example-6.jpg",
                 Schedule = 10,
                 Absence = 0,
                 Salary = 5000m,
@@ -280,7 +280,7 @@ namespace DemoMvc4.Models
                         "Claim payer tax benefit",
                         "No child"
                     },
-                Placeholder = "Example-7.png",
+                Placeholder = "Example-7.jpg",
                 Schedule = 40,
                 Absence = 0,
                 Salary = 105000m,
@@ -314,7 +314,7 @@ namespace DemoMvc4.Models
                         "Claim payer tax benefit",
                         "Claim tax benfit for 2 children"
                     },
-                Placeholder = "Example-8.png",
+                Placeholder = "Example-8.jpg",
                 Schedule = 40,
                 Absence = 0,
                 Salary = 105000m,
@@ -348,7 +348,7 @@ namespace DemoMvc4.Models
                         "Claim payer tax benefit",
                         "Claim tax benfit for 2 children"
                     },
-                Placeholder = "Example-9.png",
+                Placeholder = "Example-9.jpg",
                 Schedule = 40,
                 Absence = 0,
                 Salary = 336667m,
@@ -382,7 +382,7 @@ namespace DemoMvc4.Models
                         "Social and Health Insurance",
                         "No tax declaration and benefits"
                     },
-                Placeholder = "Example-C.png",
+                Placeholder = "Example-C.jpg",
                 Schedule = 24,
                 Absence = 0,
                 Salary = 5000m,
@@ -417,7 +417,7 @@ namespace DemoMvc4.Models
                         "Claim disability 3 benefit",
                         "Claim studying benefit"
                     },
-                Placeholder = "Example-S.png",
+                Placeholder = "Example-S.jpg",
                 Schedule = 24,
                 Absence = 0,
                 Salary = 1242532m,
@@ -452,7 +452,7 @@ namespace DemoMvc4.Models
                         "Claim disability 3 benefit",
                         "Claim studying benefit"
                     },
-                Placeholder = "Example-H.png",
+                Placeholder = "Example-H.jpg",
                 Schedule = 40,
                 Absence = 0,
                 Salary = 1809964m,
@@ -486,7 +486,7 @@ namespace DemoMvc4.Models
                         "Claim payer tax benefit",
                         "Claim tax benfit for 5 children"
                     },
-                Placeholder = "Example-CH5.png",
+                Placeholder = "Example-CH5.jpg",
                 Schedule = 40,
                 Absence = 0,
                 Salary = 10000m,
@@ -520,7 +520,7 @@ namespace DemoMvc4.Models
                         "Claim payer tax benefit",
                         "Claim tax benfit for 2 children"
                     },
-                Placeholder = "Example-CH2.png",
+                Placeholder = "Example-CH2.jpg",
                 Schedule = 24,
                 Absence = 0,
                 Salary = 15000m,
@@ -547,8 +547,8 @@ namespace DemoMvc4.Models
                 examples = new List<ExampleSpec>
                 {
                     ExampleSpec.ExampleForStarterEmployee(1u),
-                    ExampleSpec.ExampleForJuniorProgrammer(2u),
-                    ExampleSpec.ExampleForSeniorProgrammer(3u),
+                    //ExampleSpec.ExampleForJuniorProgrammer(2u),
+                    //ExampleSpec.ExampleForSeniorProgrammer(3u),
                     ExampleSpec.ExampleForMarketing(4u),
                     ExampleSpec.ExampleForMaintenance(5u),
                     ExampleSpec.ExampleForManagement(6u),

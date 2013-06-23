@@ -7,13 +7,59 @@
     <p>We are here to make a payroll agenda now, simple and clear for everyone.</p>
 </div>
 
-<ul>
-    <li>
-        <a href="http://hravemzdy.eu" target="_blank">Hravé Mzdy project</a>
-    </li>
-    <li>
-        @Html.ActionLink("Examples", "Index", "Payroll")
-    </li>
-    <li>Version 1.0.2
-    </li>
-</ul>
+<div id="payroll-carousel" class="carousel slide">
+    <div class="carousel-inner">
+        <div class="active item">
+            <img src="~/Content/images/CarouselSlide/Carousel-Payroll.jpg" alt="">
+            <div class="container">
+                <div class="carousel-caption">
+                    <p class="lead">Simple Payroll? Payroll as a game for small business.</p>
+                    <br />
+                    <a class="btn btn-large btn-primary" href="#">Try examples</a>
+                </div>
+            </div>
+        </div>
+        <div class="item">
+            <img src="~/Content/images/CarouselSlide/Carousel-Click.jpg" alt="">
+            <div class="container">
+                <div class="carousel-caption">
+                    <p class="lead">Just a few clicks to get payroll from timesheet to direct deposit.</p>
+                    <br />
+                    <a class="btn btn-large btn-primary" href="#">Try examples</a>
+                </div>
+            </div>
+        </div>
+        <div class="item">
+            <img src="~/Content/images/CarouselSlide/Carousel-Paycheck.jpg" alt="">
+            <div class="container">
+                <div class="carousel-caption">
+                    <p class="lead">All done with easy. Completely and accurately. With save about $200 a month.</p>
+                    <br />
+                    <a class="btn btn-large btn-primary" href="#">Try examples</a>
+                </div>
+            </div>
+        </div>
+        <div class="item">
+            <img src="~/Content/images/CarouselSlide/Carousel-Love.jpg" alt="">
+            <div class="container">
+                <div class="carousel-caption">
+                    <p class="lead">You and your staff will love it. To learn, teach, create, inspire.</p>
+                    <br />
+                    <a class="btn btn-large btn-primary" href="#">Try examples</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a class="carousel-control left" href="#payroll-carousel" data-slide="prev">&lsaquo;</a>
+    <a class="carousel-control right" href="#payroll-carousel" data-slide="next">&rsaquo;</a>
+</div>
+
+<script>
+    !function ($) {
+        $(function () {
+            // carousel demo
+            $('#payroll-carousel').carousel()
+        })
+    }(window.jQuery)
+</script>
+
