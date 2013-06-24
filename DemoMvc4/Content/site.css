@@ -15,6 +15,11 @@
   height: 30px;
 }
 
+.logo-brand {
+  width: 65px;
+  height: 35px;
+}
+
 .navbar .nav > li > a.btn-text-white 
 {
     color: white;

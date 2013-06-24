@@ -6,6 +6,8 @@ using PayrollLibrary.Business.Core;
 using PayrollLibrary.Business.CoreItems;
 using PayrollLibrary.Business.Export;
 using PayrollLibrary.Business.Symbols;
+using System.IO;
+using iTextSharp.text;
 
 namespace DemoMvc4.Models
 {
@@ -17,6 +19,8 @@ namespace DemoMvc4.Models
 
         public PayrollExample()
         {
+            SpecId = 0u;
+
             DateTime periodNow = DateTime.Now;
 
             Period = new PayrollPeriod((uint)periodNow.Year, (byte)periodNow.Month);
@@ -30,6 +34,8 @@ namespace DemoMvc4.Models
 
         public PayrollExample(ExampleSpec exampleSpec)
         {
+            SpecId = exampleSpec.Id;
+
             DateTime periodNow = DateTime.Now;
 
             Period = new PayrollPeriod((uint)periodNow.Year, (byte)periodNow.Month);
@@ -85,6 +91,8 @@ namespace DemoMvc4.Models
                 Exporter.GetSourceSummaryExport()[1].ToDictionary(key => key.Key, value => value.Value)
             };
         }
+
+        public uint SpecId { get; set; }
 
         private PayrollProcess PayProcess { get; set; }
 
@@ -241,6 +249,28 @@ namespace DemoMvc4.Models
             var result_tag = PayProcess.AddTerm(PayTagGateway.REF_INCOME_NETTO, empty_value);
             var result = PayProcess.Evaluate(result_tag);
             return true;
+        }
+
+        public string CreateXML()
+        {
+            PayrollResultsXmlExporter exporter = new PayrollResultsXmlExporter(
+                PersonnelCompany,
+                PersonnelDepartment,
+                PersonnelName,
+                PersonnelNumber,
+                PayProcess);
+            return exporter.ExportXml();
+        }
+
+        public bool CreatePDF(Stream stream, bool bCloseStream)
+        {
+            PayrollResultsPdfExporter exporter = new PayrollResultsPdfExporter(
+                PersonnelCompany,
+                PersonnelDepartment,
+                PersonnelName,
+                PersonnelNumber,
+                PayProcess);
+            return exporter.ExportPdf(stream, bCloseStream);
         }
     }
 }

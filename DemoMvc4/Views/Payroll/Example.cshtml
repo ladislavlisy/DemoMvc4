@@ -7,10 +7,10 @@
     <div class="navbar-inner">
         <a class="brand" href="#">@ViewBag.Title</a>
         <ul class="nav">
-            <li><a href="#">Back to Examples</a></li>
+            <li><a href="@Url.Action("Index")">Back to Examples</a></li>
             <li class="active"><a href="#">Payroll Data</a></li>
-            <li class="btn-success"><a class="btn-text-white" href="#">Download PDF</a></li>
-            <li class="btn-info"><a class="btn-text-white" href="#">Download XML</a></li>
+            <li class="btn-success"><a class="btn-text-white" href="@Url.Action("DownloadPDF", new {Id = @Model.SpecId})">Download PDF</a></li>
+            <li class="btn-info"><a class="btn-text-white" href="@Url.Action("DownloadXML", new {Id = @Model.SpecId})">Download XML</a></li>
         </ul>
     </div>
 </div>

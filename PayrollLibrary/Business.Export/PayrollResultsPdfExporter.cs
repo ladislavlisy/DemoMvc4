@@ -134,7 +134,7 @@ namespace PayrollLibrary.Business.Export
             return (millimeters / 25.4f * 72);
         }
 
-        public bool ExportPdf(string fileNamePath)
+        public bool ExportPdf(Stream stream, bool bCloseStream)
         {
             const int PAGE_F1 = 1;
 
@@ -148,11 +148,13 @@ namespace PayrollLibrary.Business.Export
 
             try
             {
-
                 // step 1: creation of a document-object			
                 Document document = new Document(PageSize.A4, 0, 0, 150, 150);
+
                 // step 2: we create a writer that listens to the document			
-                PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(fileNamePath, FileMode.Create));
+                PdfWriter writer = PdfWriter.GetInstance(document, stream);
+                writer.CloseStream = bCloseStream;
+
                 // step 3: we open the document			
                 document.Open();
                 // Create a core font with a specified encoding
@@ -230,8 +232,11 @@ namespace PayrollLibrary.Business.Export
                 //document.Add(paycheckTable);
                 DrawTableToContent(cb, pageSizeWithRotation, paycheckTable, 150f, 850f, 1850f);
 
-                // step 5: we close the document
                 document.Close();
+
+                stream.Flush(); //Always catches me out
+                stream.Position = 0; //Not sure if this is required
+
             }
             catch (InvalidOperationException ex)
             {
@@ -244,6 +249,28 @@ namespace PayrollLibrary.Business.Export
                 return false;
             }
             return true;
+        }
+
+        public bool ExportFilePdf(string fileNamePath)
+        {
+            bool bSuccess = false;
+            try
+            {
+                var fileStream = new FileStream(fileNamePath, FileMode.Create);
+                
+                bSuccess = ExportPdf(fileStream, true);
+            }
+            catch (InvalidOperationException ex)
+            {
+                string message = ex.Message;
+                return false;
+            }
+            catch (SystemException ex)
+            {
+                string message = ex.Message;
+                return false;
+            }
+            return bSuccess;
         }
 
         private void DrawTableToContent(PdfContentByte cb, Rectangle pageSizeWithRotation, PdfPTable table, float llx, float lly, float totalWidth)

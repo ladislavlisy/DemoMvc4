@@ -42,6 +42,10 @@
     <Reference Include="Antlr3.Runtime">
       <HintPath>..\packages\WebGrease.1.0.0\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="itextsharp, Version=5.2.1.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\PayrollLibrary\lib\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -136,6 +140,7 @@
     <Content Include="Content\bootstrap-responsive.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\brand_logo.png" />
     <Content Include="Content\images\CarouselSlide\Carousel-Click.jpg" />
     <Content Include="Content\images\CarouselSlide\Carousel-Click2.jpg" />
     <Content Include="Content\images\CarouselSlide\Carousel-Easy.jpg" />
@@ -145,6 +150,16 @@
     <Content Include="Content\images\CarouselSlide\Carousel-Paycheck2.jpg" />
     <Content Include="Content\images\CarouselSlide\Carousel-Payroll.jpg" />
     <Content Include="Content\images\CarouselSlide\Carousel-Payroll2.jpg" />
+    <Content Include="Content\images\CarouselSlide\Carousel7-Click.jpg" />
+    <Content Include="Content\images\CarouselSlide\Carousel7-Click2.jpg" />
+    <Content Include="Content\images\CarouselSlide\Carousel7-Easy.jpg" />
+    <Content Include="Content\images\CarouselSlide\Carousel7-Easy2.jpg" />
+    <Content Include="Content\images\CarouselSlide\Carousel7-Love.jpg" />
+    <Content Include="Content\images\CarouselSlide\Carousel7-Love2.jpg" />
+    <Content Include="Content\images\CarouselSlide\Carousel7-Paycheck.jpg" />
+    <Content Include="Content\images\CarouselSlide\Carousel7-Paycheck2.jpg" />
+    <Content Include="Content\images\CarouselSlide\Carousel7-Payroll.jpg" />
+    <Content Include="Content\images\CarouselSlide\Carousel7-Payroll2.jpg" />
     <Content Include="Content\images\deduction.png" />
     <Content Include="Content\images\Example-1.jpg" />
     <Content Include="Content\images\Example-2.jpg" />
